@@ -49,7 +49,7 @@ public class JobDriver_CastWallraise : JobDriver
                 var map = actor.Map;
                 LocalTargetInfo target = targetA.Cell.RandomAdjacentCell8Way();
                 var list = new List<Thing>();
-                list.AddRange(AffectedCells(target).SelectMany(c => from t in c.GetThingList(map)
+                list.AddRange(affectedCells(target).SelectMany(c => from t in c.GetThingList(map)
                     where t.def.category == ThingCategory.Item
                     select t));
                 foreach (var item in list)
@@ -57,7 +57,7 @@ public class JobDriver_CastWallraise : JobDriver
                     item.DeSpawn();
                 }
 
-                foreach (var item2 in AffectedCells(target))
+                foreach (var item2 in affectedCells(target))
                 {
                     GenSpawn.Spawn(ThingDefOf.RaisedRocks, item2, map);
                     GenClamor.DoClamor(actor, item2, 25f, ClamorDefOf.Ability);
@@ -97,7 +97,7 @@ public class JobDriver_CastWallraise : JobDriver
         this.FailOnDespawnedOrNull(TargetIndex.A);
     }
 
-    private IEnumerable<IntVec3> AffectedCells(LocalTargetInfo target)
+    private static IEnumerable<IntVec3> affectedCells(LocalTargetInfo target)
     {
         foreach (var intVec in new List<IntVec2>
                  {

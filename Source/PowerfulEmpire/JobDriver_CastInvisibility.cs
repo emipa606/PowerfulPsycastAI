@@ -46,10 +46,10 @@ public class JobDriver_CastInvisibility : JobDriver
                 var psycastPsychicEffect = SoundDefOf.PsycastPsychicEffect;
                 psycastPsychicEffect.PlayOneShot(new TargetInfo(targetA.Cell, actor.Map));
                 var hediff = HediffMaker.MakeHediff(DefOfLocal.PsychicInvisibility, actor);
-                var hediffComp_Disappears = hediff.TryGetComp<HediffComp_Disappears>();
-                if (hediffComp_Disappears != null)
+                var hediffCompDisappears = hediff.TryGetComp<HediffComp_Disappears>();
+                if (hediffCompDisappears != null)
                 {
-                    hediffComp_Disappears.ticksToDisappear = 15f.SecondsToTicks();
+                    hediffCompDisappears.ticksToDisappear = 15f.SecondsToTicks();
                 }
 
                 actor.health.AddHediff(hediff);

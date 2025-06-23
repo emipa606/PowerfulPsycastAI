@@ -60,7 +60,7 @@ public class JobDriver_CastMassChaosSkip : JobDriver
                     select pwn).ToList();
                 foreach (var target in list)
                 {
-                    var destination = GetDestination(target);
+                    var destination = getDestination(target);
                     if (!destination.IsValid)
                     {
                         return;
@@ -87,7 +87,7 @@ public class JobDriver_CastMassChaosSkip : JobDriver
         };
     }
 
-    public LocalTargetInfo GetDestination(LocalTargetInfo target)
+    private LocalTargetInfo getDestination(LocalTargetInfo target)
     {
         var map = pawn.Map;
         cells.Clear();

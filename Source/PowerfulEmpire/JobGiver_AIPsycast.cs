@@ -193,9 +193,9 @@ internal class JobGiver_AIPsycast : ThinkNode_JobGiver
                     select pwn).ToList();
                 var num = 0;
                 var num2 = 0;
-                foreach (var afffectedPawn in possiblePawn)
+                foreach (var affectedPawn in possiblePawn)
                 {
-                    if (afffectedPawn.Faction == pawn.Faction)
+                    if (affectedPawn.Faction == pawn.Faction)
                     {
                         num++;
                     }

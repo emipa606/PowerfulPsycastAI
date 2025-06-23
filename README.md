@@ -1,4 +1,4 @@
-# [Powerful Psycast AI (Continued)]()
+# [Powerful Psycast AI (Continued)](https://steamcommunity.com/sharedfiles/filedetails/?id=3276102794)
 
 ![Image](https://i.imgur.com/buuPQel.png)
 
@@ -46,4 +46,6 @@ Thanks to Seanggag for Korean translation.
 -  If you have the solution for a problem, please post it to the GitHub repository.
 -  Use [RimSort](https://github.com/RimSort/RimSort/releases/latest) to sort your mods
 
+ 
 
+[![Image](https://img.shields.io/github/v/release/emipa606/PowerfulPsycastAI?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/3276102794) | tags:  psycast,  enemies

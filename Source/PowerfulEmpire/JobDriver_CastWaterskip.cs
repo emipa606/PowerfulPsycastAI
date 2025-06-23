@@ -34,7 +34,7 @@ public class JobDriver_CastWaterskip : JobDriver
             initAction = delegate
             {
                 var map = actor.Map;
-                foreach (var item in AffectedCells(targetA, map))
+                foreach (var item in affectedCells(targetA, map))
                 {
                     var thingList = item.GetThingList(map);
                     for (var num = thingList.Count - 1; num >= 0; num--)
@@ -62,7 +62,7 @@ public class JobDriver_CastWaterskip : JobDriver
         };
     }
 
-    private IEnumerable<IntVec3> AffectedCells(LocalTargetInfo target, Map map)
+    private static IEnumerable<IntVec3> affectedCells(LocalTargetInfo target, Map map)
     {
         foreach (var item in GenRadial.RadialCellsAround(target.Cell, 1.9f, true))
         {

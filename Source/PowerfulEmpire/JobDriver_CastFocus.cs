@@ -46,10 +46,10 @@ public class JobDriver_CastFocus : JobDriver
                 var psycastPsychicEffect = SoundDefOf.PsycastPsychicEffect;
                 psycastPsychicEffect.PlayOneShot(new TargetInfo(targetA.Cell, actor.Map));
                 var hediff = HediffMaker.MakeHediff(DefOfLocal.PsychicFocus, actor);
-                var hediffComp_Disappears = hediff.TryGetComp<HediffComp_Disappears>();
-                if (hediffComp_Disappears != null)
+                var hediffCompDisappears = hediff.TryGetComp<HediffComp_Disappears>();
+                if (hediffCompDisappears != null)
                 {
-                    hediffComp_Disappears.ticksToDisappear =
+                    hediffCompDisappears.ticksToDisappear =
                         (60f * actor.GetStatValue(StatDefOf.PsychicSensitivity)).SecondsToTicks();
                 }
 

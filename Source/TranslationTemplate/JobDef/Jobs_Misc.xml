@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+  <!-- EN: casting. -->
+  <CastBeckon.reportString>casting.</CastBeckon.reportString>
+  <!-- EN: casting. -->
+  <CastBerserk.reportString>casting.</CastBerserk.reportString>
+  <!-- EN: casting. -->
+  <CastBerserkPulse.reportString>casting.</CastBerserkPulse.reportString>
+  <!-- EN: casting. -->
+  <CastBlindingPulse.reportString>casting.</CastBlindingPulse.reportString>
+  <!-- EN: casting. -->
+  <CastBurden.reportString>casting.</CastBurden.reportString>
+  <!-- EN: casting. -->
+  <CastChaosSkip.reportString>casting.</CastChaosSkip.reportString>
+  <!-- EN: casting. -->
+  <CastFocus.reportString>casting.</CastFocus.reportString>
+  <!-- EN: casting. -->
+  <CastInvisibility.reportString>casting.</CastInvisibility.reportString>
+  <!-- EN: casting. -->
+  <CastManhunterPulse.reportString>casting.</CastManhunterPulse.reportString>
+  <!-- EN: casting. -->
+  <CastMassChaosSkip.reportString>casting.</CastMassChaosSkip.reportString>
+  <!-- EN: casting. -->
+  <CastPainblock.reportString>casting.</CastPainblock.reportString>
+  <!-- EN: casting. -->
+  <CastSkip.reportString>casting.</CastSkip.reportString>
+  <!-- EN: casting. -->
+  <CastSmokepop.reportString>casting.</CastSmokepop.reportString>
+  <!-- EN: casting. -->
+  <CastStun.reportString>casting.</CastStun.reportString>
+  <!-- EN: casting. -->
+  <CastVertigoPulse.reportString>casting.</CastVertigoPulse.reportString>
+  <!-- EN: casting. -->
+  <CastWallraise.reportString>casting.</CastWallraise.reportString>
+  <!-- EN: casting. -->
+  <CastWaterskip.reportString>casting.</CastWaterskip.reportString>
+</LanguageData>

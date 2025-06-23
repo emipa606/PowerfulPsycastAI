@@ -39,7 +39,7 @@ public class JobDriver_CastChaosSkip : JobDriver
             {
                 initAction = delegate
                 {
-                    var destination = GetDestination(victim);
+                    var destination = getDestination(victim);
                     if (!destination.IsValid)
                     {
                         return;
@@ -64,7 +64,7 @@ public class JobDriver_CastChaosSkip : JobDriver
         this.FailOnDespawnedOrNull(TargetIndex.A);
     }
 
-    public LocalTargetInfo GetDestination(LocalTargetInfo target)
+    private LocalTargetInfo getDestination(LocalTargetInfo target)
     {
         var map = pawn.Map;
         cells.Clear();

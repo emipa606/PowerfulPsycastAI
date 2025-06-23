@@ -128,13 +128,8 @@ public class PawnGroupKindWorker_Psycast : PawnGroupKindWorker
             if (!givePsycastToAll || !pawn.RaceProps.Humanlike ||
                 pawn.health.hediffSet.HasHediff(HediffDefOf.PsychicAmplifier) ||
                 !(pawn.GetStatValue(StatDefOf.PsychicSensitivity) >= 1f) || pawn.Faction == Faction.OfPlayer ||
-                pawn.HostFaction == Faction.OfPlayer)
-            {
-                outPawns.Add(pawn);
-                continue;
-            }
-
-            if (pawn.Faction.def.techLevel == TechLevel.Neolithic &&
+                pawn.HostFaction == Faction.OfPlayer ||
+                pawn.Faction.def.techLevel == TechLevel.Neolithic &&
                 Rand.RangeInclusive(1, 100) > psycastGainChanceNeolithic ||
                 pawn.Faction.def.techLevel == TechLevel.Medieval &&
                 Rand.RangeInclusive(1, 100) > psycastGainChanceMedieval ||
