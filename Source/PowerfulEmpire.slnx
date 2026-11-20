@@ -3,4 +3,20 @@
     <BuildType Name="Release" />
   </Configurations>
   <Project Path="PowerfulEmpire/PowerfulEmpire.csproj" />
+  <Folder Name="/.github/">
+    <File Path="../.github/copilot-instructions.md" />
+  </Folder>
+  <Folder Name="/XML/Languages/English/Keyed/">
+    <File Path="../Languages/English/Keyed/ModSettings.xml" />
+  </Folder>
+  <Folder Name="/XML/1.7/Defs/">
+    <File Path="../1.7/Defs/Jobs_Misc.xml" />
+    <File Path="../1.7/Defs/ThinkTreeDefs.xml" />
+  </Folder>
+  <Folder Name="/XML/About/">
+    <File Path="../About/about.xml" />
+  </Folder>
+  <Folder Name="/XML/1.7/Patches/">
+    <File Path="../1.7/Patches/Faction_Empire_Patch.xml" />
+  </Folder>
 </Solution>

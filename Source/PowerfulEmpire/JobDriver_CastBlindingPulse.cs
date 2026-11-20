@@ -52,11 +52,8 @@ public class JobDriver_CastBlindingPulse : JobDriver
                     {
                         var hediff = HediffMaker.MakeHediff(DefOfLocal.PsychicBlindness, affectedPawn);
                         var hediffComp_Disappears = hediff.TryGetComp<HediffComp_Disappears>();
-                        if (hediffComp_Disappears != null)
-                        {
-                            hediffComp_Disappears.ticksToDisappear =
-                                (30f * affectedPawn.GetStatValue(StatDefOf.PsychicSensitivity)).SecondsToTicks();
-                        }
+                        hediffComp_Disappears?.ticksToDisappear =
+                            (30f * affectedPawn.GetStatValue(StatDefOf.PsychicSensitivity)).SecondsToTicks();
 
                         affectedPawn.health.AddHediff(hediff);
                     }

@@ -50,11 +50,8 @@ public class JobDriver_CastBurden : JobDriver
                     psycastPsychicEffect.PlayOneShot(new TargetInfo(targetA.Cell, actor.Map));
                     var hediff = HediffMaker.MakeHediff(DefOfLocal.PsychicBurden, victim);
                     var hediffCompDisappears = hediff.TryGetComp<HediffComp_Disappears>();
-                    if (hediffCompDisappears != null)
-                    {
-                        hediffCompDisappears.ticksToDisappear =
-                            (20f * victim.GetStatValue(StatDefOf.PsychicSensitivity)).SecondsToTicks();
-                    }
+                    hediffCompDisappears?.ticksToDisappear =
+                        (20f * victim.GetStatValue(StatDefOf.PsychicSensitivity)).SecondsToTicks();
 
                     victim.health.AddHediff(hediff);
                     actor.psychicEntropy.TryAddEntropy(8f, overLimit: true);

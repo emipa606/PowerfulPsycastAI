@@ -3,7 +3,7 @@ using Verse;
 namespace PowerfulEmpire;
 
 [StaticConstructorOnStartup]
-public class SettingsImplementer
+public static class SettingsImplementer
 {
     static SettingsImplementer()
     {

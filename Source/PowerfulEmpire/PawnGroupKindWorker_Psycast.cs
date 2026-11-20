@@ -116,10 +116,7 @@ public class PawnGroupKindWorker_Psycast : PawnGroupKindWorker
             if (parms.forceOneDowned && !oneIsDowned)
             {
                 pawn.health.forceDowned = true;
-                if (pawn.guest != null)
-                {
-                    pawn.guest.Recruitable = true;
-                }
+                pawn.guest?.Recruitable = true;
 
                 pawn.mindState.canFleeIndividual = false;
                 oneIsDowned = true;

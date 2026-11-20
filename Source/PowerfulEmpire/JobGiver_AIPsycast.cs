@@ -92,92 +92,92 @@ internal class JobGiver_AIPsycast : ThinkNode_JobGiver
                 select pwn).RandomElementWithFallback();
         }
 
-        foreach (var ability in abilities)
+        foreach (var ability in abilities.Select(ability => ability.def))
         {
             if (enemyTarget != null)
             {
-                if (ability.def == DefOfLocal.BerserkPulse && allowBerserkPulse)
+                if (ability == DefOfLocal.BerserkPulse && allowBerserkPulse)
                 {
                     berserkPulse = true;
                 }
 
-                if (ability.def == DefOfLocal.ManhunterPulse && allowManhunterPulse)
+                if (ability == DefOfLocal.ManhunterPulse && allowManhunterPulse)
                 {
                     manhunterPulse = true;
                 }
 
-                if (ability.def == DefOfLocal.VertigoPulse && allowVertigoPulse)
+                if (ability == DefOfLocal.VertigoPulse && allowVertigoPulse)
                 {
                     vertigoPulse = true;
                 }
 
-                if (ability.def == DefOfLocal.BlindingPulse && allowBlindingPulse)
+                if (ability == DefOfLocal.BlindingPulse && allowBlindingPulse)
                 {
                     blindingPulse = true;
                 }
 
-                if (ability.def == DefOfLocal.Berserk && allowBerserk)
+                if (ability == DefOfLocal.Berserk && allowBerserk)
                 {
                     berserk = true;
                 }
 
-                if (ability.def == DefOfLocal.Beckon && allowBeckon)
+                if (ability == DefOfLocal.Beckon && allowBeckon)
                 {
                     beckon = true;
                 }
 
-                if (ability.def == DefOfLocal.Stun && allowStun)
+                if (ability == DefOfLocal.Stun && allowStun)
                 {
                     stun = true;
                 }
 
-                if (ability.def == DefOfLocal.MassChaosSkip && allowMassChaosSkip)
+                if (ability == DefOfLocal.MassChaosSkip && allowMassChaosSkip)
                 {
                     massChaosSkip = true;
                 }
 
-                if (ability.def == DefOfLocal.ChaosSkip && allowChaosSkip)
+                if (ability == DefOfLocal.ChaosSkip && allowChaosSkip)
                 {
                     chaosSkip = true;
                 }
 
-                if (ability.def == DefOfLocal.Skip && allowSkip)
+                if (ability == DefOfLocal.Skip && allowSkip)
                 {
                     skip = true;
                 }
 
-                if (ability.def == DefOfLocal.Burden && allowBurden)
+                if (ability == DefOfLocal.Burden && allowBurden)
                 {
                     burden = true;
                 }
             }
 
-            if (ability.def == DefOfLocal.Waterskip && allowWaterskip)
+            if (ability == DefOfLocal.Waterskip && allowWaterskip)
             {
                 waterskip = true;
             }
 
-            if (ability.def == DefOfLocal.Wallraise && allowWallraise)
+            if (ability == DefOfLocal.Wallraise && allowWallraise)
             {
                 wallraise = true;
             }
 
-            if (ability.def == DefOfLocal.Smokepop && allowSmokepop)
+            if (ability == DefOfLocal.Smokepop && allowSmokepop)
             {
                 smokepop = true;
             }
 
-            if (ability.def == DefOfLocal.Invisibility && allowInvisibility)
+            if (ability == DefOfLocal.Invisibility && allowInvisibility)
             {
                 invisibility = true;
             }
 
-            if (ability.def == DefOfLocal.Focus && allowFocus)
+            if (ability == DefOfLocal.Focus && allowFocus)
             {
                 focus = true;
             }
 
-            if (ability.def == DefOfLocal.Painblock && allowPainblock)
+            if (ability == DefOfLocal.Painblock && allowPainblock)
             {
                 painblock = true;
             }
@@ -186,6 +186,7 @@ internal class JobGiver_AIPsycast : ThinkNode_JobGiver
         if (!enemyTarget.DestroyedOrNull() && pawn.CanReserve(enemyTarget) && !enemyTarget.GetRegion().touchesMapEdge)
         {
             if (berserkPulse && pawn.psychicEntropy.CurrentPsyfocus > 0.5 &&
+                enemyTarget != null &&
                 pawn.Position.InHorDistOf(enemyTarget.Position, 14.9f))
             {
                 var possiblePawn = (from Pawn pwn in pawn.Map.mapPawns.AllPawns
@@ -205,16 +206,14 @@ internal class JobGiver_AIPsycast : ThinkNode_JobGiver
                     }
                 }
 
-                if (num2 >= 2 && num2 > num)
+                if (num2 >= 2 && num2 > num && (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(65f)))
                 {
-                    if (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(65f))
-                    {
-                        return JobMaker.MakeJob(DefOfLocal.CastBerserkPulse, enemyTarget);
-                    }
+                    return JobMaker.MakeJob(DefOfLocal.CastBerserkPulse, enemyTarget);
                 }
             }
 
             if (manhunterPulse && pawn.psychicEntropy.CurrentPsyfocus > 0.5 &&
+                enemyTarget != null &&
                 pawn.Position.InHorDistOf(enemyTarget.Position, 34.9f) && enemyTarget.RaceProps.Animal &&
                 pawn.HostileTo(Faction.OfPlayer))
             {
@@ -222,30 +221,28 @@ internal class JobGiver_AIPsycast : ThinkNode_JobGiver
                     where pwn.Position.InHorDistOf(enemyTarget.Position, 27.9f) && pwn.RaceProps.Animal &&
                           !pwn.InMentalState
                     select pwn).ToList();
-                if (possiblePawn.Count >= 3)
+                if (possiblePawn.Count >= 3 && (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(50f)))
                 {
-                    if (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(50f))
-                    {
-                        return JobMaker.MakeJob(DefOfLocal.CastManhunterPulse, enemyTarget);
-                    }
+                    return JobMaker.MakeJob(DefOfLocal.CastManhunterPulse, enemyTarget);
                 }
             }
 
             if (berserk && pawn.psychicEntropy.CurrentPsyfocus > 0.5 &&
-                pawn.Position.InHorDistOf(enemyTarget.Position, 19.9f))
+                enemyTarget != null &&
+                pawn.Position.InHorDistOf(enemyTarget.Position, 19.9f) &&
+                (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(40f)))
             {
-                if (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(40f))
-                {
-                    return JobMaker.MakeJob(DefOfLocal.CastBerserk, enemyTarget);
-                }
+                return JobMaker.MakeJob(DefOfLocal.CastBerserk, enemyTarget);
             }
 
-            if (vertigoPulse && pawn.psychicEntropy.CurrentPsyfocus > 0.25 && enemyTarget.RaceProps.IsFlesh &&
+            if (vertigoPulse && pawn.psychicEntropy.CurrentPsyfocus > 0.25 &&
+                enemyTarget != null &&
+                enemyTarget.RaceProps.IsFlesh &&
                 pawn.Position.InHorDistOf(enemyTarget.Position, 24.9f) &&
                 !enemyTarget.health.hediffSet.HasHediff(DefOfLocal.PsychicVertigo))
             {
                 var possiblePawn = (from Pawn pwn in pawn.Map.mapPawns.AllPawns
-                    where pwn.Position.InHorDistOf(enemyTarget.Position, 3.9f) & pwn.RaceProps.IsFlesh
+                    where pwn.Position.InHorDistOf(enemyTarget.Position, 3.9f) && pwn.RaceProps.IsFlesh
                     select pwn).ToList();
                 var num3 = 0;
                 var num4 = 0;
@@ -261,12 +258,9 @@ internal class JobGiver_AIPsycast : ThinkNode_JobGiver
                     }
                 }
 
-                if (num4 >= 2 && num4 > num3 + 1)
+                if (num4 >= 2 && num4 > num3 + 1 && (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(30f)))
                 {
-                    if (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(30f))
-                    {
-                        return JobMaker.MakeJob(DefOfLocal.CastVertigoPulse, enemyTarget);
-                    }
+                    return JobMaker.MakeJob(DefOfLocal.CastVertigoPulse, enemyTarget);
                 }
             }
         }
@@ -276,39 +270,34 @@ internal class JobGiver_AIPsycast : ThinkNode_JobGiver
             var possiblePawn = (from Pawn pwn in pawn.Map.mapPawns.SpawnedPawnsInFaction(pawn.Faction)
                 where pwn.Position.InHorDistOf(pawn.Position, 24.9f) && pwn.HasAttachment(ThingDefOf.Fire)
                 select pwn).RandomElementWithFallback();
-            if (possiblePawn != null)
+            if (possiblePawn != null && (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(25f)))
             {
-                if (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(25f))
-                {
-                    return JobMaker.MakeJob(DefOfLocal.CastWaterskip, possiblePawn);
-                }
+                return JobMaker.MakeJob(DefOfLocal.CastWaterskip, possiblePawn);
             }
         }
 
         if (invisibility && pawn.psychicEntropy.CurrentPsyfocus > 0.5 &&
-            !pawn.health.hediffSet.HasHediff(DefOfLocal.PsychicInvisibility))
+            !pawn.health.hediffSet.HasHediff(DefOfLocal.PsychicInvisibility) &&
+            (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(45f)))
         {
-            if (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(45f))
-            {
-                return JobMaker.MakeJob(DefOfLocal.CastInvisibility, pawn);
-            }
+            return JobMaker.MakeJob(DefOfLocal.CastInvisibility, pawn);
         }
 
         if (!enemyTarget.DestroyedOrNull() && pawn.CanReserve(enemyTarget) && !enemyTarget.GetRegion().touchesMapEdge)
         {
             if (beckon && pawn.psychicEntropy.CurrentPsyfocus > 0.25 &&
+                enemyTarget != null &&
                 pawn.Position.InHorDistOf(enemyTarget.Position, 19.9f) &&
                 enemyTarget.CurJobDef != JobDefOf.GotoMindControlled && (enemyTarget.equipment?.Primary == null ||
                                                                          enemyTarget.equipment.Primary.def
-                                                                             .IsRangedWeapon))
+                                                                             .IsRangedWeapon) &&
+                (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(20f)))
             {
-                if (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(20f))
-                {
-                    return JobMaker.MakeJob(DefOfLocal.CastBeckon, enemyTarget);
-                }
+                return JobMaker.MakeJob(DefOfLocal.CastBeckon, enemyTarget);
             }
 
             if (blindingPulse && pawn.psychicEntropy.CurrentPsyfocus > 0.01 &&
+                enemyTarget != null &&
                 pawn.Position.InHorDistOf(enemyTarget.Position, 24.9f) &&
                 !enemyTarget.health.hediffSet.HasHediff(DefOfLocal.PsychicBlindness))
             {
@@ -329,12 +318,9 @@ internal class JobGiver_AIPsycast : ThinkNode_JobGiver
                     }
                 }
 
-                if (num6 >= 2 && num6 > num5 + 1)
+                if (num6 >= 2 && num6 > num5 + 1 && (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(20f)))
                 {
-                    if (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(20f))
-                    {
-                        return JobMaker.MakeJob(DefOfLocal.CastBlindingPulse, enemyTarget);
-                    }
+                    return JobMaker.MakeJob(DefOfLocal.CastBlindingPulse, enemyTarget);
                 }
             }
         }
@@ -342,7 +328,8 @@ internal class JobGiver_AIPsycast : ThinkNode_JobGiver
         if (smokepop && pawn.psychicEntropy.CurrentPsyfocus > 0.25 && building != null &&
             building.def.building.ai_combatDangerous)
         {
-            if (CoverUtility.TotalSurroundingCoverScore(enemyTarget.Position, pawn.Map) < 0.25f &&
+            if (enemyTarget != null &&
+                CoverUtility.TotalSurroundingCoverScore(enemyTarget.Position, pawn.Map) < 0.25f &&
                 pawn.Position.InHorDistOf(building.Position, 24.9f))
             {
                 if (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(30f))
@@ -363,22 +350,18 @@ internal class JobGiver_AIPsycast : ThinkNode_JobGiver
             CoverUtility.TotalSurroundingCoverScore(pawn.Position, pawn.Map) < 0.5f && pawn.equipment is
             {
                 Primary: not null
-            } && pawn.equipment.Primary.def.IsRangedWeapon)
+            } && pawn.equipment.Primary.def.IsRangedWeapon &&
+            (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(35f)))
         {
-            if (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(35f))
-            {
-                return JobMaker.MakeJob(DefOfLocal.CastWallraise, pawn);
-            }
+            return JobMaker.MakeJob(DefOfLocal.CastWallraise, pawn);
         }
 
         if (painblock && pawn.psychicEntropy.CurrentPsyfocus > 0.02 &&
             !pawn.health.hediffSet.HasHediff(DefOfLocal.PsychicAnesthesia) &&
-            pawn.health.hediffSet.HasTendableHediff())
+            pawn.health.hediffSet.HasTendableHediff() &&
+            (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(8f)))
         {
-            if (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(8f))
-            {
-                return JobMaker.MakeJob(DefOfLocal.CastPainblock, pawn);
-            }
+            return JobMaker.MakeJob(DefOfLocal.CastPainblock, pawn);
         }
 
         if (focus && pawn.psychicEntropy.CurrentPsyfocus > 0.25 &&
@@ -394,6 +377,7 @@ internal class JobGiver_AIPsycast : ThinkNode_JobGiver
         }
 
         if (massChaosSkip && pawn.psychicEntropy.CurrentPsyfocus > 0.5 &&
+            enemyTarget != null &&
             pawn.Position.InHorDistOf(enemyTarget.Position, 24.9f) &&
             CoverUtility.TotalSurroundingCoverScore(enemyTarget.Position, pawn.Map) >= 0.75f)
         {
@@ -414,49 +398,44 @@ internal class JobGiver_AIPsycast : ThinkNode_JobGiver
                 }
             }
 
-            if (num8 >= 3 && num8 > num7 + 2)
+            if (num8 >= 3 && num8 > num7 + 2 && (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(40f)))
             {
-                if (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(40f))
-                {
-                    return JobMaker.MakeJob(DefOfLocal.CastMassChaosSkip, enemyTarget);
-                }
+                return JobMaker.MakeJob(DefOfLocal.CastMassChaosSkip, enemyTarget);
             }
         }
 
         if (stun && pawn.psychicEntropy.CurrentPsyfocus > 0.01 &&
-            pawn.Position.InHorDistOf(enemyTarget.Position, 24.9f) && !enemyTarget.stances.FullBodyBusy)
+            enemyTarget != null &&
+            pawn.Position.InHorDistOf(enemyTarget.Position, 24.9f) && !enemyTarget.stances.FullBodyBusy &&
+            (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(12f)))
         {
-            if (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(12f))
-            {
-                return JobMaker.MakeJob(DefOfLocal.CastStun, enemyTarget);
-            }
+            return JobMaker.MakeJob(DefOfLocal.CastStun, enemyTarget);
         }
 
         if (chaosSkip && pawn.psychicEntropy.CurrentPsyfocus > 0.25 &&
+            enemyTarget != null &&
             pawn.Position.InHorDistOf(enemyTarget.Position, 24.9f) &&
             CoverUtility.TotalSurroundingCoverScore(enemyTarget.Position, pawn.Map) >= 0.75f &&
             pawn.equipment is { Primary: not null } &&
-            pawn.equipment.Primary.def.IsRangedWeapon)
+            pawn.equipment.Primary.def.IsRangedWeapon &&
+            (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(18f)))
         {
-            if (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(18f))
-            {
-                return JobMaker.MakeJob(DefOfLocal.CastChaosSkip, enemyTarget);
-            }
+            return JobMaker.MakeJob(DefOfLocal.CastChaosSkip, enemyTarget);
         }
 
         if (skip && pawn.psychicEntropy.CurrentPsyfocus > 0.25 &&
+            enemyTarget != null &&
             pawn.Position.InHorDistOf(enemyTarget.Position, 27.9f) &&
             CoverUtility.TotalSurroundingCoverScore(enemyTarget.Position, pawn.Map) >= 0.75f &&
             pawn.equipment is { Primary: not null } &&
-            pawn.equipment.Primary.def.IsRangedWeapon)
+            pawn.equipment.Primary.def.IsRangedWeapon &&
+            (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(25f)))
         {
-            if (allowAIHeatPush || !pawn.psychicEntropy.WouldOverflowEntropy(25f))
-            {
-                return JobMaker.MakeJob(DefOfLocal.CastSkip, enemyTarget);
-            }
+            return JobMaker.MakeJob(DefOfLocal.CastSkip, enemyTarget);
         }
 
         if (burden && pawn.psychicEntropy.CurrentPsyfocus > 0.01 && pawn.psychicEntropy.EntropyValue < 1f &&
+            enemyTarget != null &&
             pawn.Position.InHorDistOf(enemyTarget.Position, 29.9f) &&
             !enemyTarget.health.hediffSet.HasHediff(DefOfLocal.PsychicBurden))
         {

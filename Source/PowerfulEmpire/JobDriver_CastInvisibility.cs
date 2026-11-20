@@ -47,10 +47,7 @@ public class JobDriver_CastInvisibility : JobDriver
                 psycastPsychicEffect.PlayOneShot(new TargetInfo(targetA.Cell, actor.Map));
                 var hediff = HediffMaker.MakeHediff(DefOfLocal.PsychicInvisibility, actor);
                 var hediffCompDisappears = hediff.TryGetComp<HediffComp_Disappears>();
-                if (hediffCompDisappears != null)
-                {
-                    hediffCompDisappears.ticksToDisappear = 15f.SecondsToTicks();
-                }
+                hediffCompDisappears?.ticksToDisappear = 15f.SecondsToTicks();
 
                 actor.health.AddHediff(hediff);
                 actor.psychicEntropy.TryAddEntropy(45f, overLimit: true);

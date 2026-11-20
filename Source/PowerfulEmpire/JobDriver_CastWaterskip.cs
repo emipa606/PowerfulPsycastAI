@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using RimWorld;
 using UnityEngine;
 using Verse;
@@ -64,12 +65,10 @@ public class JobDriver_CastWaterskip : JobDriver
 
     private static IEnumerable<IntVec3> affectedCells(LocalTargetInfo target, Map map)
     {
-        foreach (var item in GenRadial.RadialCellsAround(target.Cell, 1.9f, true))
+        foreach (var item in GenRadial.RadialCellsAround(target.Cell, 1.9f, true).Where(item =>
+                     item.InBounds(map) && GenSight.LineOfSightToEdges(target.Cell, item, map, true)))
         {
-            if (item.InBounds(map) && GenSight.LineOfSightToEdges(target.Cell, item, map, true))
-            {
-                yield return item;
-            }
+            yield return item;
         }
     }
 }

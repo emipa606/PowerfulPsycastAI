@@ -47,11 +47,8 @@ public class JobDriver_CastPainblock : JobDriver
                 psycastPsychicEffect.PlayOneShot(new TargetInfo(targetA.Cell, actor.Map));
                 var hediff = HediffMaker.MakeHediff(DefOfLocal.PsychicAnesthesia, actor);
                 var hediffCompDisappears = hediff.TryGetComp<HediffComp_Disappears>();
-                if (hediffCompDisappears != null)
-                {
-                    hediffCompDisappears.ticksToDisappear =
-                        (120f * actor.GetStatValue(StatDefOf.PsychicSensitivity)).SecondsToTicks();
-                }
+                hediffCompDisappears?.ticksToDisappear =
+                    (120f * actor.GetStatValue(StatDefOf.PsychicSensitivity)).SecondsToTicks();
 
                 actor.health.AddHediff(hediff);
                 actor.psychicEntropy.TryAddEntropy(8f, overLimit: true);

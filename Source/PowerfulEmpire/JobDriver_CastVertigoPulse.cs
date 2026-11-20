@@ -53,11 +53,8 @@ public class JobDriver_CastVertigoPulse : JobDriver
                     {
                         var hediff = HediffMaker.MakeHediff(DefOfLocal.PsychicVertigo, affectedPawn);
                         var hediffComp_Disappears = hediff.TryGetComp<HediffComp_Disappears>();
-                        if (hediffComp_Disappears != null)
-                        {
-                            hediffComp_Disappears.ticksToDisappear =
-                                (20f * affectedPawn.GetStatValue(StatDefOf.PsychicSensitivity)).SecondsToTicks();
-                        }
+                        hediffComp_Disappears?.ticksToDisappear =
+                            (20f * affectedPawn.GetStatValue(StatDefOf.PsychicSensitivity)).SecondsToTicks();
 
                         affectedPawn.health.AddHediff(hediff);
                     }

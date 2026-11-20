@@ -47,11 +47,8 @@ public class JobDriver_CastFocus : JobDriver
                 psycastPsychicEffect.PlayOneShot(new TargetInfo(targetA.Cell, actor.Map));
                 var hediff = HediffMaker.MakeHediff(DefOfLocal.PsychicFocus, actor);
                 var hediffCompDisappears = hediff.TryGetComp<HediffComp_Disappears>();
-                if (hediffCompDisappears != null)
-                {
-                    hediffCompDisappears.ticksToDisappear =
-                        (60f * actor.GetStatValue(StatDefOf.PsychicSensitivity)).SecondsToTicks();
-                }
+                hediffCompDisappears?.ticksToDisappear =
+                    (60f * actor.GetStatValue(StatDefOf.PsychicSensitivity)).SecondsToTicks();
 
                 actor.health.AddHediff(hediff);
                 actor.psychicEntropy.TryAddEntropy(15f, overLimit: true);
